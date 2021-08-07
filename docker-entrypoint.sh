@@ -1,7 +1,9 @@
 #!/bin/bash
 
+LOCAL="$(ip --json addr show eth0 | jq --raw-output '.[0].addr_info[0].local')"
+
 ip route add table 200 $(ip route show default)
-ip rule add from "$(ip --json addr show eth0 | jq --raw-output '.[0].addr_info[0].local')" lookup 200
+ip rule add from "$LOCAL" lookup 200
 
 openvpn --script-security 2 --up /etc/openvpn/update-resolv-conf --auth-nocache\
     --cd "$PWD" --config "$OVPN" &
@@ -14,4 +16,4 @@ done || exit 1
 trap "kill $OVPNPID" EXIT SIGINT
 
 echo "start sock5s"
-sock5s -l 0.0.0.0:1080
+sock5s -l "$LOCAL:1080"
