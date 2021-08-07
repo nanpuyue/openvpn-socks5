@@ -11,6 +11,7 @@ while kill -0 "$OVPNPID" >/dev/null 2>&1; do
     sleep 0.5
     [ -d /sys/devices/virtual/net/tun0 ] && break
 done || exit 1
+trap "kill $OVPNPID" EXIT SIGINT
 
 echo "[socks5] started"
 sock5s -l 0.0.0.0:1080 2>&1 | sed 's/^/[sock5s] /g'
