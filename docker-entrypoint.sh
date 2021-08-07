@@ -4,7 +4,7 @@ ip route add table 200 $(ip route show default)
 ip rule add from "$(ip --json addr show eth0 | jq --raw-output '.[0].addr_info[0].local')" lookup 200
 
 openvpn --script-security 2 --up /etc/openvpn/update-resolv-conf --auth-nocache\
-    --cd "$PWD" --config "$OVPN" 2>&1 | sed 's/^/[openvpn] /g' &
+    --cd "$PWD" --config "$OVPN" &
 OVPNPID="$!"
 
 while kill -0 "$OVPNPID" >/dev/null 2>&1; do
@@ -13,5 +13,5 @@ while kill -0 "$OVPNPID" >/dev/null 2>&1; do
 done || exit 1
 trap "kill $OVPNPID" EXIT SIGINT
 
-echo "[socks5] started"
-sock5s -l 0.0.0.0:1080 2>&1 | sed 's/^/[sock5s] /g'
+echo "start sock5s"
+sock5s -l 0.0.0.0:1080
