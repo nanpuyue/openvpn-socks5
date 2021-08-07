@@ -4,7 +4,7 @@ RUN cargo install --git https://github.com/nanpuyue/sock5s.git
 FROM ubuntu:latest
 COPY --from=builder /usr/local/cargo/bin/sock5s /usr/local/bin
 RUN apt update &&\
-    apt install -y openresolv openvpn &&\
+    apt install -y jq openresolv openvpn &&\
     apt clean
 
 WORKDIR /vpn

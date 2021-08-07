@@ -4,7 +4,7 @@ RUN cargo install --git https://github.com/nanpuyue/sock5s.git
 
 FROM alpine:latest
 COPY --from=builder /usr/local/cargo/bin/sock5s /usr/local/bin
-RUN apk add --update --no-cache bash openresolv openvpn
+RUN apk add --update --no-cache bash jq openresolv openvpn
 ADD update-resolv-conf /etc/openvpn/update-resolv-conf
 
 WORKDIR /vpn
