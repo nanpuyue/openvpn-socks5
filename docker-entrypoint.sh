@@ -27,11 +27,5 @@ kill_and_wait() {
     wait "${PIDS[@]}"
 }
 
-wait_to_exit() {
-    wait -n "${PIDS[@]}"
-    kill_and_wait "${PIDS[@]}"
-}
-
-trap kill_and_wait EXIT INT
-wait_to_exit
-trap - EXIT INT
+trap kill_and_wait EXIT
+wait -n "${PIDS[@]}"
