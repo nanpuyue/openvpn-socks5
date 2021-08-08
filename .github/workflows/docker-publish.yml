@@ -38,6 +38,8 @@ jobs:
         id: meta
         uses: docker/metadata-action@v3
         with:
+          flavor: |
+            latest=true
           images: |
             ${{ github.repository }}
             ghcr.io/${{ github.repository }}
