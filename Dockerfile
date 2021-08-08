@@ -1,5 +1,6 @@
 FROM rust:alpine as builder
 RUN apk add --update --no-cache musl-dev
+ENV RUSTFLAGS="-Copt-level=s -Clink-arg=-s"
 RUN cargo install --git https://github.com/nanpuyue/sock5s.git
 
 FROM alpine:latest
