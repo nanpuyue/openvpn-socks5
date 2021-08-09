@@ -28,3 +28,8 @@ docker run -it --rm --name openvpn-socks5 --device=/dev/net/tun --cap-add=NET_AD
 ```
 
 Add the `-d` option to run as a daemon, or press `Ctrl`+`P` -> `Ctrl`+`Q` to detach.
+
+## License
+This project is licensed under the [MIT license].
+
+[MIT license]: https://github.com/nanpuyue/openvpn-socks5/blob/master/LICENSE
