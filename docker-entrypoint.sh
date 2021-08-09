@@ -11,8 +11,8 @@ LOCAL="$(ip --json addr show eth0 | jq --raw-output '.[0].addr_info[0].local')"
 ip route add table 200 $(ip route show default)
 ip rule add from "$LOCAL" lookup 200
 
-openvpn --script-security 2 --up "$UPDOWN" --down "$UPDOWN" --auth-nocache\
-    --cd "$PWD" --config "$OVPN" "$@" &
+openvpn --script-security 2 --up "$UPDOWN" --down "$UPDOWN" --cd "$PWD"\
+    --config "$OVPN" "$@" &
 PIDS[${#PIDS[@]}]="$!"
 
 trap kill_and_wait EXIT
